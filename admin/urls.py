@@ -11,4 +11,5 @@ urlpatterns = [
     # URLS Category MODEL
     path('categories/', views.categories, name="categories"),
     path('categories/create', views.categories_create, name="categories.create"),
+    path('categories/edit/<int:category_id>', views.categories_edit, name="categories.edit")
 ]

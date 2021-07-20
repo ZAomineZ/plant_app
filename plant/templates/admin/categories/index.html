@@ -17,7 +17,7 @@
                 <td>{{ category.title }}</td>
                 <td>{{ category.slug }}</td>
                 <td>
-                    <a href="#" class="btn btn-secondary">Modifier</a>
+                    <a href="{% url 'admin:categories.edit' category.id %}" class="btn btn-secondary">Modifier</a>
                 </td>
             </tr>
         {% endfor %}

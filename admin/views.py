@@ -1,7 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 from django.utils.text import slugify
 
@@ -56,5 +56,34 @@ def categories_create(request):
         else:
             errors = form.errors
     else:
-        form = PlantForm()
+        form = CategoryForm()
     return render(request, 'admin/categories/create.html', {'form': form, 'errors': errors})
+
+
+def categories_edit(request, category_id: int):
+    category = get_object_or_404(Category, pk=category_id)
+    errors = None
+
+    if request.method == 'POST':
+        form = CategoryForm(request.POST)
+        if form.is_valid():
+            title = form.cleaned_data['title']
+            slug = slugify(title)
+            description = form.cleaned_data['description']
+            # Save new category
+            category.title = title
+            category.slug = slug
+            category.description = description
+            category.save()
+
+            messages.success(request, 'Tu as édité ta catégorie avec success !')
+            return HttpResponseRedirect(reverse('admin:categories'))
+        else:
+            errors = form.errors
+    else:
+        form = CategoryForm(instance=category)
+    return render(request, 'admin/categories/edit.html', {
+        'form': form,
+        'category': category,
+        'errors': errors
+    })
