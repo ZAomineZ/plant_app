@@ -15,3 +15,15 @@ class PlantForm(forms.ModelForm):
     class Meta:
         model = Plant
         fields = ('title', 'slug', 'description', 'category')
+
+
+class CategoryForm(forms.ModelForm):
+    title = forms.CharField(label="Title", max_length=60, required=True,
+                            widget=forms.TextInput(attrs={'class': 'form-control'}))
+    slug = forms.CharField(label="Slug", max_length=60, required=True,
+                           widget=forms.TextInput(attrs={'class': 'form-control'}))
+    description = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control'}))
+
+    class Meta:
+        model = Category
+        fields = ('title', 'slug', 'description')
