@@ -25,7 +25,8 @@ def plant_create(request):
             description = form.cleaned_data['description']
             category = form.cleaned_data['category']
             image = getImagePlant(form.cleaned_data['image'])
-            Plant.objects.create(title=title, slug=slug, description=description, category=category, image=image)
+            # Save plant model
+            plant = Plant.objects.create(title=title, slug=slug, description=description, category=category, image=image)
             # Redirect with success message
             messages.success(request, 'Vous avez crée une plante avec succès !')
             return HttpResponseRedirect(reverse('admin:plants'))
@@ -42,5 +43,4 @@ def getImagePlant(image) -> ImagePlant:
     filename = fs.save(image.name, image)
     uploaded_file_url = fs.url(filename)
     # Create new image plant model
-    ImagePlant.objects.create(title=image.name, image=uploaded_file_url)
-    return ImagePlant.objects.filter(title=image.name).get()
+    return ImagePlant.objects.create(title=image.name, image=uploaded_file_url)
