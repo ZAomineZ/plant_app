@@ -25,9 +25,17 @@ def plant_create(request):
             slug = slugify(title)
             description = form.cleaned_data['description']
             category = form.cleaned_data['category']
+            # Other fields for the filter
+            shade = form.cleaned_data['shade']
+            moisture = form.cleaned_data['moisture']
+            wind = form.cleaned_data['wind']
+            soil = form.cleaned_data['soil']
+            growth_rate = form.cleaned_data['growth_rate']
+
             image = getImagePlant(form.cleaned_data['image'])
             # Save plant model
-            Plant.objects.create(title=title, slug=slug, description=description, category=category, image=image)
+            Plant.objects.create(title=title, slug=slug, description=description, category=category, image=image,
+                                 shade=shade, moisture=moisture, wind=wind, soil=soil, growth_rate=growth_rate)
             # Redirect with success message
             messages.success(request, 'Vous avez crée une plante avec succès !')
             return HttpResponseRedirect(reverse('admin:plants'))
@@ -48,6 +56,13 @@ def plant_edit(request, plant_id: int):
             slug = slugify(title)
             description = form.cleaned_data['description']
             category = form.cleaned_data['category']
+            # Other fields for the filter
+            shade = form.cleaned_data['shade']
+            moisture = form.cleaned_data['moisture']
+            wind = form.cleaned_data['wind']
+            soil = form.cleaned_data['soil']
+            growth_rate = form.cleaned_data['growth_rate']
+
             if form.cleaned_data['image'] is not None:
                 image = getImagePlant(form.cleaned_data['image'])
             else:
@@ -57,6 +72,11 @@ def plant_edit(request, plant_id: int):
             plant.slug = slug
             plant.description = description
             plant.category = category
+            plant.shade = shade
+            plant.moisture = moisture
+            plant.wind = wind
+            plant.soil = soil
+            plant.growth_rate = growth_rate
             plant.image = image
             plant.save()
             # Redirect with success message

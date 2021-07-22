@@ -1,5 +1,6 @@
 {% extends 'layout/base.html' %}
 {% load static %}
+{% load none_attribute_tag %}
 
 {% block content %}
     <table class="table mt-3">
@@ -9,7 +10,11 @@
             <th scope="col">Title</th>
             <th scope="col">Slug</th>
             <th scope="col">Description</th>
-            <th scope="col">Image</th>
+            <th scope="col">Ombre</th>
+            <th scope="col">Humidité</th>
+            <th scope="col">Vent</th>
+            <th scope="col">Sol</th>
+            <th scope="col">Taux de croissance</th>
             <th scope="col">Actions</th>
         </tr>
         </thead>
@@ -20,6 +25,11 @@
                 <td>{{ plant.title }}</td>
                 <td>{{ plant.slug }}</td>
                 <td>{{ plant.description }}</td>
+                <td>{{ plant.shade | none_attribute }}</td>
+                <td>{{ plant.moisture | none_attribute }}</td>
+                <td>{{ plant.wind | none_attribute }}</td>
+                <td>{{ plant.soil | none_attribute }}</td>
+                <td>{{ plant.growth_rate | none_attribute }}</td>
                 <td>
                     <img src="{% static plant.image.image %}" alt="{{ plant.image.title }}" class="img-fluid" width="50"
                          height="50">

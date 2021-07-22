@@ -24,6 +24,13 @@ class Plant(models.Model):
     slug = models.CharField(max_length=60)
     description = models.TextField()
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
+
+    shade = models.CharField(max_length=50, null=True)
+    moisture = models.CharField(max_length=50, null=True)
+    wind = models.CharField(max_length=50, null=True)
+    soil = models.CharField(max_length=50, null=True)
+    growth_rate = models.CharField(max_length=50, null=True)
+
     image = models.OneToOneField(ImagePlant, on_delete=models.CASCADE)
 
     def __str__(self):
