@@ -1,20 +1,37 @@
 {% extends 'layout/base.html' %}
+{% load static %}
 
 {% block content %}
     <table class="table mt-3">
-            <thead>
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Title</th>
+            <th scope="col">Slug</th>
+            <th scope="col">Description</th>
+            <th scope="col">Image</th>
+            <th scope="col">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for plant in plants %}
             <tr>
-                <th scope="col">#</th>
-                <th scope="col">Title</th>
-                <th scope="col">Slug</th>
-                <th scope="col">Description</th>
-                <th scope="col">Image Name</th>
-                <th scope="col">Actions</th>
+                <td>{{ plant.id }}</td>
+                <td>{{ plant.title }}</td>
+                <td>{{ plant.slug }}</td>
+                <td>{{ plant.description }}</td>
+                <td>
+                    <img src="{% static plant.image.image %}" alt="{{ plant.image.title }}" class="img-fluid" width="50"
+                         height="50">
+                </td>
+                <td>
+                    <a href="{% url 'admin:plants.edit' plant.id %}" class="btn btn-secondary">
+                        Editer
+                    </a>
+                </td>
             </tr>
-            </thead>
-            <tbody>
-
-            </tbody>
+        {% endfor %}
+        </tbody>
     </table>
     <a href="{% url 'admin:plants.create' %}" class="btn btn-secondary">Ajouter nouvelle plante</a>
 {% endblock %}
