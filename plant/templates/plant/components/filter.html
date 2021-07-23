@@ -1,39 +1,40 @@
 <h3>Filter</h3>
 <form action="#" method="POST" class="mt-4">
-    <div class="mb-3">
-        <label for="search_plant" class="form-label">Chercher une plante</label>
-        <input type="search_plant" class="form-control" id="search_plant" placeholder="Chercher une plante...">
+    <div class="row">
+        <div class="mb-3 col-md-6">
+            <label for="search_plant" class="form-label">{{ form.search_plant.label }}</label>
+            {{ form.search_plant }}
+        </div>
+        <div class="mb-3 col-md-6">
+            <label for="{{ form.search_category.id_for_label }}"
+                   class="form-label">{{ form.search_category.label }}</label>
+            {{ form.search_category }}
+        </div>
     </div>
     <div class="row">
         <div class="mb-3 col-md-4">
-            <label for="search_category" class="form-label">Chercher une catégorie</label>
-            <select name="search_category" id="search_category" class="form-control">
-                <option value="1">Vivace</option>
-                <option value="1">Vivace</option>
-                <option value="1">Vivace</option>
-                <option value="1">Vivace</option>
-                <option value="1">Vivace</option>
-            </select>
+            <label for="{{ form.search_shade.id_for_label }}" class="form-label">{{ form.search_shade.label }}</label>
+            {{ form.search_shade }}
         </div>
         <div class="mb-3 col-md-4">
-            <label for="search_category" class="form-label">Chercher une catégorie</label>
-            <select name="search_category" id="search_category" class="form-control">
-                <option value="1">Vivace</option>
-                <option value="1">Vivace</option>
-                <option value="1">Vivace</option>
-                <option value="1">Vivace</option>
-                <option value="1">Vivace</option>
-            </select>
+            <label for="{{ form.search_moisture.id_for_label }}"
+                   class="form-label">{{ form.search_moisture.label }}</label>
+            {{ form.search_moisture }}
         </div>
         <div class="mb-3 col-md-4">
-            <label for="search_category" class="form-label">Chercher une catégorie</label>
-            <select name="search_category" id="search_category" class="form-control">
-                <option value="1">Vivace</option>
-                <option value="1">Vivace</option>
-                <option value="1">Vivace</option>
-                <option value="1">Vivace</option>
-                <option value="1">Vivace</option>
-            </select>
+            <label for="{{ form.search_wind.id_for_label }}" class="form-label">{{ form.search_wind.label }}</label>
+            {{ form.search_wind }}
         </div>
     </div>
+    <div class="row">
+        <div class="mb-3 col-md-6">
+            <label for="{{ form.search_soil.id_for_label }}" class="form-label">{{ form.search_soil.label }}</label>
+            {{ form.search_soil }}
+        </div>
+        <div class="mb-3 col-md-6">
+            <label for="{{ form.search_growth_rate.id_for_label }}" class="form-label">{{ form.search_growth_rate.label }}</label>
+            {{ form.search_growth_rate }}
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Envoyer</button>
 </form>

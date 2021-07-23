@@ -56,8 +56,24 @@ class PlantForm(forms.ModelForm):
         model = Plant
         fields = ('title', 'slug', 'description', 'category')
 
-class PlantFilterForm(forms.ModelForm):
-    pass
+
+class PlantFilterForm(forms.Form):
+    search_plant = forms.CharField(label="Chercher une plante", max_length=60, required=False,
+                                   widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Chercher une plante...'}))
+    search_category = forms.ModelChoiceField(Category.objects.all(),
+                                             widget=forms.Select(attrs={'class': 'form-control'}), required=False)
+
+    search_shade = forms.CharField(label="Chercher par type d'ombre", max_length=50, required=False,
+                                   widget=forms.Select(attrs={'class': 'form-control'}, choices=SHADE))
+    search_moisture = forms.CharField(label="Chercher par type d'humidité", max_length=50, required=False,
+                                      widget=forms.Select(attrs={'class': 'form-control'}, choices=MOISTURE))
+    search_wind = forms.CharField(label="Chercher par type de vent", max_length=50, required=False,
+                                  widget=forms.Select(attrs={'class': 'form-control'}, choices=WIND))
+    search_soil = forms.CharField(label="Chercher par type de sol", max_length=50, required=False,
+                                  widget=forms.Select(attrs={'class': 'form-control'}, choices=SOIL))
+    search_growth_rate = forms.CharField(label="Taux de croissance", max_length=50, required=False,
+                                         widget=forms.Select(attrs={'class': 'form-control'}, choices=GROWTH_RATE))
+
 
 class CategoryForm(forms.ModelForm):
     title = forms.CharField(label="Title", max_length=60, required=True,

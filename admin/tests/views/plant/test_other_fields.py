@@ -32,7 +32,7 @@ class PlantCreateWithOtherFields(TestCase):
         self.assertEqual(response.status_code, 302)
         self.assertEqual(Plant.objects.count(), 1)
         # Check field shad is not None
-        self.assertEqual(plantLast.moisture, 'sol_sec')
+        self.assertEqual(plantLast.moisture, 'sol-sec')
         self.assertIsNotNone(plantLast.moisture)
 
     def test_create_with_wind(self):
@@ -56,7 +56,7 @@ class PlantCreateWithOtherFields(TestCase):
         self.assertIsNotNone(plantLast.soil)
 
     def test_create_with_growth_rate(self):
-        response = self.requestCreatePlant('hortensia', {'growth-rate': 'lent'})
+        response = self.requestCreatePlant('hortensia', {'growth_rate': 'lent'})
 
         plantLast = Plant.objects.filter(slug='hortensia').last()
         self.assertEqual(response.status_code, 302)
