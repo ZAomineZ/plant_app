@@ -192,5 +192,21 @@ class TestFilterPlant(TestCase):
         self.assertEqual(len(plants), 2)
         self.assertEqual(request.status_code, 200)
 
+    def test_reset_filter(self):
+        request = self.requestFilter({
+            'search_plant': '',
+            'search_category': '',
+            'search_shade': '',
+            'search_moisture': 'Sol sec',
+            'search_wind': 'Exposition maritime',
+            'search_soil': '',
+            'search_growth_rate': '',
+            'reset_filter': ''
+        })
+        plants = request.context['pagePlant']
+
+        self.assertEqual(len(plants), 3)
+        self.assertEqual(request.status_code, 200)
+
     def requestFilter(self, args: dict):
         return self.client.get(reverse('plant:index'), data=args)

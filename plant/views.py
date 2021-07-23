@@ -1,7 +1,7 @@
 from django.contrib import messages
 from django.core.paginator import Paginator
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 
 from plant.forms import PlantFilterForm
@@ -25,7 +25,7 @@ def index(request):
 
     # Request
     params = list(request.GET.items())
-    if request.method == 'GET' and len(params) != 0:
+    if request.method == 'GET' and len(params) != 0 and request.GET.get('reset_filter') is None:
         form = PlantFilterForm(request.GET)
 
         # Check exist category model in our BDD
@@ -65,3 +65,16 @@ def index(request):
         pagePlant = getPaginate(request)
         form = PlantFilterForm()
     return render(request, 'plant/index.html', {'pagePlant': pagePlant, 'form': form})
+
+
+def categories(request):
+    categories = Category.objects.all()
+    return render(request, 'plant/category/index.html', {'categories': categories})
+
+
+def category_detail(request, category_slug: str):
+    category = get_object_or_404(Category, slug=category_slug)
+    # Get all plants with the paginator
+    plants = Plant.objects.filter(category=category).all()
+    pagePlant = getPaginate(request, plants)
+    return render(request, 'plant/category/detail.html', {'category': category, 'pagePlant': pagePlant})

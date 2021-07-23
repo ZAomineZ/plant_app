@@ -4,11 +4,13 @@ from django.utils.text import slugify
 from plant.models import Category, Plant
 
 SHADE = [
+    (slugify(''), 'Chosir une option...'),
     (slugify('Plein ombre'), 'Plein ombre'),
     (slugify('Semi ombre'), 'Semi ombre'),
     (slugify('Plein soleil'), 'Plein soleil')
 ]
 MOISTURE = [
+    (slugify(''), 'Chosir une option...'),
     (slugify('Sol sec'), 'Sol sec'),
     (slugify('Sol humide'), 'Sol humide'),
     (slugify('Sol humide ou marécageux'), 'Sol humide ou marécageux'),
@@ -17,18 +19,20 @@ MOISTURE = [
     (slugify('Résiste à la chaleur'), 'Résiste à la chaleur')
 ]
 WIND = [
+    (slugify(''), 'Chosir une option...'),
     (slugify('Exposition maritime'), 'Exposition maritime'),
     (slugify('Tolèrant au vent fort'), 'Tolèrant au vent fort'),
     (slugify('Non tolèrant au vent'), 'Non tolèrant au vent')
 ]
 SOIL = [
+    (slugify(''), 'Chosir une option...'),
     (slugify('Léger (sableux)'), 'Léger (sableux)'),
     (slugify('Moyen'), 'Moyen'),
     (slugify('Lourd'), 'Lourd'),
     (slugify('Argile lourde'), 'Argile lourde'),
     (slugify('Sol pauvre'), 'Sol pauvre')
 ]
-GROWTH_RATE = [(slugify('Vite'), 'Vite'), (slugify('Moyen'), 'Moyen'), (slugify('Lent'), 'Lent')]
+GROWTH_RATE = [(slugify(''), 'Chosir une option...'), (slugify('Vite'), 'Vite'), (slugify('Moyen'), 'Moyen'), (slugify('Lent'), 'Lent')]
 
 
 class PlantForm(forms.ModelForm):
@@ -59,7 +63,8 @@ class PlantForm(forms.ModelForm):
 
 class PlantFilterForm(forms.Form):
     search_plant = forms.CharField(label="Chercher une plante", max_length=60, required=False,
-                                   widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Chercher une plante...'}))
+                                   widget=forms.TextInput(
+                                       attrs={'class': 'form-control', 'placeholder': 'Chercher une plante...'}))
     search_category = forms.ModelChoiceField(Category.objects.all(),
                                              widget=forms.Select(attrs={'class': 'form-control'}), required=False)
 
