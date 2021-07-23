@@ -1,0 +1,10 @@
+{% extends 'layout/base.html' %}
+
+{% block content %}
+
+    {% include 'plant/components/filter.html' %}
+
+    <h2 class="pb-2 pt-4 border-bottom">Custom cards</h2>
+
+    {% include 'plant/components/listing_with_pagination.html' %}
+{% endblock %}

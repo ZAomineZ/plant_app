@@ -1,23 +1,11 @@
 from django.contrib import messages
-from django.core.paginator import Paginator
 from django.http import HttpResponseRedirect
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render
 from django.urls import reverse
 
 from plant.forms import PlantFilterForm
-from plant.models import Plant, Category
-
-
-# Create your views here.
-def getPaginate(request, plants: list = None):
-    if plants is None:
-        items = Plant.objects.all()
-    else:
-        items = plants
-    paginator = Paginator(items, 9)
-
-    page_number = request.GET.get('page')
-    return paginator.get_page(page_number)
+from plant.models import Category, Plant
+from plant.views.utils import Paginate
 
 
 def index(request):
@@ -59,22 +47,9 @@ def index(request):
                 plants = []
             else:
                 plants = Plant.objects.filter(**args).all()
-            pagePlant = getPaginate(request, plants)
+            pagePlant = Paginate.getPaginate(request, plants)
 
     else:
-        pagePlant = getPaginate(request)
+        pagePlant = Paginate.getPaginate(request)
         form = PlantFilterForm()
-    return render(request, 'plant/index.html', {'pagePlant': pagePlant, 'form': form})
-
-
-def categories(request):
-    categories = Category.objects.all()
-    return render(request, 'plant/category/index.html', {'categories': categories})
-
-
-def category_detail(request, category_slug: str):
-    category = get_object_or_404(Category, slug=category_slug)
-    # Get all plants with the paginator
-    plants = Plant.objects.filter(category=category).all()
-    pagePlant = getPaginate(request, plants)
-    return render(request, 'plant/category/detail.html', {'category': category, 'pagePlant': pagePlant})
+    return render(request, 'plant/plant/index.html', {'pagePlant': pagePlant, 'form': form})
