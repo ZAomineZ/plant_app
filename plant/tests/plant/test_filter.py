@@ -209,4 +209,4 @@ class TestFilterPlant(TestCase):
         self.assertEqual(request.status_code, 200)
 
     def requestFilter(self, args: dict):
-        return self.client.get(reverse('plant:index'), data=args)
+        return self.client.get(reverse('plant:plants.index'), data=args)

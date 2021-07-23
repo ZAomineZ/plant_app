@@ -1,5 +1,8 @@
 from django.shortcuts import render
 
+from plant.models import Plant
+
 
 def index(request):
-    return render(request, 'plant/index.html')
+    plants = Plant.objects.order_by('id')[:3]
+    return render(request, 'plant/index.html', {'plants': plants})

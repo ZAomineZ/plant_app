@@ -1,0 +1,17 @@
+{% extends 'layout/base.html' %}
+
+{% load static %}
+
+{% block content %}
+    <div class="container py-5" style="padding-top: 6rem !important;">
+        <h2 class="pb-2 pt-4 border-bottom">Plant "{{ plant.title }}"</h2>
+
+        <div id="plant_detail" class="py-3">
+            <img src="{% static plant.image.image %}" class="rounded mx-auto d-block" alt="{{ plant.slug }}">
+            <h3 class="pt-5">Description</h3>
+            <p class="text-muted pt-2">
+                {{ plant.description }}
+            </p>
+        </div>
+    </div>
+{% endblock %}

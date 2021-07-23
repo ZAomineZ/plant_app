@@ -1,6 +1,6 @@
 from django.contrib import messages
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 
 from plant.forms import PlantFilterForm
@@ -53,3 +53,8 @@ def index(request):
         pagePlant = Paginate.getPaginate(request)
         form = PlantFilterForm()
     return render(request, 'plant/plant/index.html', {'pagePlant': pagePlant, 'form': form})
+
+
+def detail(request, plant_slug: str):
+    plant = get_object_or_404(Plant, slug=plant_slug)
+    return render(request, 'plant/plant/detail.html', {'plant': plant})
