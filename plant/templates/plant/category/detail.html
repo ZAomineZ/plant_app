@@ -2,10 +2,12 @@
 
 {% block content %}
 
-    <div class="bg-light p-5 rounded">
-        <h1>Catégorie "{{ category.title }}"</h1>
-        <p class="lead pt-2">{{ category.description }}</p>
+    <div class="container py-5" style="padding-top: 6rem !important;">
+        <div class="bg-light p-5 rounded">
+            <h1>Catégorie "{{ category.title }}"</h1>
+            <p class="lead pt-2">{{ category.description }}</p>
+        </div>
+        {% include 'plant/components/listing_with_pagination.html' %}
     </div>
-    {% include 'plant/components/listing_with_pagination.html' %}
 
 {% endblock %}

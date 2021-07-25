@@ -13,3 +13,9 @@
     -moz-user-select: none;
     user-select: none;
 }
+
+/* ICON MODULE */
+.bi {
+    vertical-align: -.125em;
+    fill: currentColor;
+}

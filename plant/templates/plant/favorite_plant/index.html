@@ -1,0 +1,13 @@
+{% extends 'layout/base.html' %}
+
+{% block content %}
+    <div class="container py-5" style="padding-top: 6rem !important;">
+        <h2 class="pb-2 pt-4 border-bottom">Vos plantes favoris</h2>
+
+        <div class="bg-light p-5 mt-5 rounded">
+            <h1>Aucun favoris !</h1>
+            <p class="lead">Vous n'avez aucunes plants dans favoris pour le moment, pour y remédier veuillez à la page ci dessous pour en ajouter. :D</p>
+            <a class="btn btn-primary" href="{% url 'plant:plants.index' %}">Plants »</a>
+        </div>
+    </div>
+{% endblock %}

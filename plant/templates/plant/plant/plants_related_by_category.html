@@ -1,0 +1,14 @@
+{% load static %}
+
+{% for plant in plants_by_category %}
+    <div class="col-md-4 col-sm-4">
+        <div class="card">
+            <img src="{% static plant.image.image %}" class="card-img-top" alt="{{ plant.slug }}">
+            <div class="card-body">
+                <h5 class="card-title">{{ plant.title }}</h5>
+                <p class="card-text">{{ plant.description }}</p>
+                <a href="{% url 'plant:plants.detail' plant.slug %}" class="btn btn-primary">Voir plus</a>
+            </div>
+        </div>
+    </div>
+{% endfor %}

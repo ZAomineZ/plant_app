@@ -9,5 +9,6 @@ urlpatterns = [
     path('plants/', views.plant.index, name="plants.index"),
     path('plants/<str:plant_slug>', views.plant.detail, name="plants.detail"),
     path('categories/', views.category.categories, name="categories"),
-    path('categories/<str:category_slug>', views.category.category_detail, name="category.detail")
+    path('categories/<str:category_slug>', views.category.category_detail, name="category.detail"),
+    path('favorite_plant/<str:username>', views.favorite_plant.index, name="favorite_plant.index")
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

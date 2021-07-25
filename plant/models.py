@@ -1,11 +1,17 @@
+from django.contrib.auth.models import User
 from django.db import models
 
 
 # Create your models here.
+
+
 class Category(models.Model):
     title = models.CharField(max_length=60)
     slug = models.CharField(max_length=60)
     description = models.TextField()
+
+    created_at = models.DateTimeField(auto_now_add=True, null=True)
+    updated_at = models.DateTimeField(auto_now=True, null=True)
 
     def __str__(self):
         return self.title
@@ -33,5 +39,16 @@ class Plant(models.Model):
 
     image = models.OneToOneField(ImagePlant, on_delete=models.CASCADE)
 
+    created_at = models.DateTimeField(auto_now_add=True, null=True)
+    updated_at = models.DateTimeField(auto_now=True, null=True)
+
     def __str__(self):
         return self.title
+
+
+class FavoritePlant(models.Model):
+    plant = models.ForeignKey(Plant, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    created_at = models.DateTimeField(auto_now_add=True, null=True)
+    updated_at = models.DateTimeField(auto_now=True, null=True)

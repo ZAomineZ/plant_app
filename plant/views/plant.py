@@ -62,7 +62,7 @@ def detail(request, plant_slug: str):
     plants_by_category = Plant.objects.filter(category=plant.category) \
         .exclude(id=plant.id) \
         .order_by('id') \
-        .all()
+        .all()[:3]
     # Get plants related
     plants_related = related_plants(plant)
     return render(request, 'plant/plant/detail.html', {

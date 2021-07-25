@@ -1,10 +1,11 @@
 {% extends 'layout/base.html' %}
 
 {% block content %}
+    <div class="container py-5" style="padding-top: 6rem !important;">
+        {% include 'plant/components/filter.html' %}
 
-    {% include 'plant/components/filter.html' %}
+        <h2 class="pb-2 pt-4 border-bottom">Custom cards</h2>
 
-    <h2 class="pb-2 pt-4 border-bottom">Custom cards</h2>
-
-    {% include 'plant/components/listing_with_pagination.html' %}
+        {% include 'plant/components/listing_with_pagination.html' %}
+    </div>
 {% endblock %}

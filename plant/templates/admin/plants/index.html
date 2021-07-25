@@ -3,45 +3,48 @@
 {% load none_attribute_tag %}
 
 {% block content %}
-    <table class="table mt-3">
-        <thead>
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col">Title</th>
-            <th scope="col">Slug</th>
-            <th scope="col">Description</th>
-            <th scope="col">Ombre</th>
-            <th scope="col">Humidité</th>
-            <th scope="col">Vent</th>
-            <th scope="col">Sol</th>
-            <th scope="col">Taux de croissance</th>
-            <th scope="col">Actions</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for plant in plants %}
+    <div class="container py-5">
+        <table class="table mt-3">
+            <thead>
             <tr>
-                <td>{{ plant.id }}</td>
-                <td>{{ plant.title }}</td>
-                <td>{{ plant.slug }}</td>
-                <td>{{ plant.description }}</td>
-                <td>{{ plant.shade | none_attribute }}</td>
-                <td>{{ plant.moisture | none_attribute }}</td>
-                <td>{{ plant.wind | none_attribute }}</td>
-                <td>{{ plant.soil | none_attribute }}</td>
-                <td>{{ plant.growth_rate | none_attribute }}</td>
-                <td>
-                    <img src="{% static plant.image.image %}" alt="{{ plant.image.title }}" class="img-fluid" width="50"
-                         height="50">
-                </td>
-                <td>
-                    <a href="{% url 'admin:plants.edit' plant.id %}" class="btn btn-secondary">
-                        Editer
-                    </a>
-                </td>
+                <th scope="col">#</th>
+                <th scope="col">Title</th>
+                <th scope="col">Slug</th>
+                <th scope="col">Description</th>
+                <th scope="col">Ombre</th>
+                <th scope="col">Humidité</th>
+                <th scope="col">Vent</th>
+                <th scope="col">Sol</th>
+                <th scope="col">Taux de croissance</th>
+                <th scope="col">Actions</th>
             </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-    <a href="{% url 'admin:plants.create' %}" class="btn btn-secondary">Ajouter nouvelle plante</a>
+            </thead>
+            <tbody>
+            {% for plant in plants %}
+                <tr>
+                    <td>{{ plant.id }}</td>
+                    <td>{{ plant.title }}</td>
+                    <td>{{ plant.slug }}</td>
+                    <td>{{ plant.description }}</td>
+                    <td>{{ plant.shade | none_attribute }}</td>
+                    <td>{{ plant.moisture | none_attribute }}</td>
+                    <td>{{ plant.wind | none_attribute }}</td>
+                    <td>{{ plant.soil | none_attribute }}</td>
+                    <td>{{ plant.growth_rate | none_attribute }}</td>
+                    <td>
+                        <img src="{% static plant.image.image %}" alt="{{ plant.image.title }}" class="img-fluid"
+                             width="50"
+                             height="50">
+                    </td>
+                    <td>
+                        <a href="{% url 'admin:plants.edit' plant.id %}" class="btn btn-secondary">
+                            Editer
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <a href="{% url 'admin:plants.create' %}" class="btn btn-secondary">Ajouter nouvelle plante</a>
+    </div>
 {% endblock %}

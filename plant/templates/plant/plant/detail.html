@@ -13,5 +13,11 @@
                 {{ plant.description }}
             </p>
         </div>
+        <div id="pants_related_by_category" class=" py-4">
+            <h2 class="pb-2 pt-4 border-bottom">Plantes de la même catégorie</h2>
+            <div class="row pt-3">
+                {% include 'plant/plant/plants_related_by_category.html' %}
+            </div>
+        </div>
     </div>
 {% endblock %}
