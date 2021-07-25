@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.db.models import Count
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
@@ -57,4 +58,23 @@ def index(request):
 
 def detail(request, plant_slug: str):
     plant = get_object_or_404(Plant, slug=plant_slug)
-    return render(request, 'plant/plant/detail.html', {'plant': plant})
+    # Get plants by category
+    plants_by_category = Plant.objects.filter(category=plant.category) \
+        .exclude(id=plant.id) \
+        .order_by('id') \
+        .all()
+    # Get plants related
+    plants_related = related_plants(plant)
+    return render(request, 'plant/plant/detail.html', {
+        'plant': plant,
+        'plants_by_category': plants_by_category,
+        'plants_related': plants_related
+    })
+
+
+def related_plants(plant: Plant):
+    description_current = plant.description
+
+    plants_related = Plant.objects.filter(description__in=description_current).exclude(id=plant.id)
+    plants_related = plants_related.annotate(some_description=Count('description'))
+    return plants_related.order_by('id')[:3]
