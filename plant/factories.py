@@ -1,7 +1,19 @@
 import factory
+from django.contrib.auth.models import User
 from django.core.files.base import ContentFile
 
-from plant.models import Plant, Category, ImagePlant
+from plant.models import Plant, Category, ImagePlant, FavoritePlant
+
+
+class UserFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = User
+        django_get_or_create = ('username', 'email', 'password', 'is_superuser')
+
+    username = factory.sequence(lambda n: 'Title %s' % n)
+    email = factory.sequence(lambda n: 'email%s.test.fr' % n)
+    password = 'test'
+    is_superuser = False
 
 
 class CategoryFactory(factory.django.DjangoModelFactory):
@@ -47,3 +59,12 @@ class PlantFactory(factory.django.DjangoModelFactory):
     growth_rate = factory.sequence(lambda n: 'Vite')
 
     image = factory.SubFactory(ImageFactory)
+
+
+class FavoritePlantFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = FavoritePlant
+        django_get_or_create = ('plant', 'user')
+
+    plant = factory.SubFactory(PlantFactory)
+    user = factory.SubFactory(UserFactory)
