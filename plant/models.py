@@ -48,7 +48,13 @@ class Plant(models.Model):
 
 class FavoritePlant(models.Model):
     plant = models.ForeignKey(Plant, on_delete=models.CASCADE)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     created_at = models.DateTimeField(auto_now_add=True, null=True)
     updated_at = models.DateTimeField(auto_now=True, null=True)
+
+
+class CustomUser(User):
+    favorite_plants = models.ManyToManyField(FavoritePlant)
+
+    def __str__(self):
+        return self.username

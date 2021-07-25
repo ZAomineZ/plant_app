@@ -1,8 +1,8 @@
-from django.contrib.auth.models import User
 from django.test import TestCase
 from django.urls import reverse
 
 from plant import factories
+from plant.models import CustomUser, FavoritePlant
 
 
 class FavoritePlantIndexPage(TestCase):
@@ -17,12 +17,13 @@ class FavoritePlantIndexPage(TestCase):
                                                    wind='Exposition maritime', soil='Argile lourde', growth_rate='Vite')
 
         # Create user factory
-        self.user = User.objects.create(username='Vincent', email='vincent@test.fr')
+        self.user = CustomUser.objects.create(username='Vincent', email='vincent@test.fr')
         self.user.set_password('test')
         self.user.save()
         self.user_fake = factories.UserFactory.create(username='Toto', email='toto@test.fr', password='testtoto')
         # Create favorite_plant factory
-        factories.FavoritePlantFactory.create(plant=self.plant, user=self.user)
+        favorite_plant = FavoritePlant.objects.create(plant=self.plant)
+        self.user.favorite_plants.add(favorite_plant)
 
     def test_index_page_with_bad_user(self):
         # Authenticated user

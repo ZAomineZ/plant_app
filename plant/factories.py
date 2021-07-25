@@ -1,13 +1,12 @@
 import factory
-from django.contrib.auth.models import User
 from django.core.files.base import ContentFile
 
-from plant.models import Plant, Category, ImagePlant, FavoritePlant
+from plant.models import Plant, Category, ImagePlant, FavoritePlant, CustomUser
 
 
 class UserFactory(factory.django.DjangoModelFactory):
     class Meta:
-        model = User
+        model = CustomUser
         django_get_or_create = ('username', 'email', 'password', 'is_superuser')
 
     username = factory.sequence(lambda n: 'Title %s' % n)
@@ -64,7 +63,6 @@ class PlantFactory(factory.django.DjangoModelFactory):
 class FavoritePlantFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = FavoritePlant
-        django_get_or_create = ('plant', 'user')
+        django_get_or_create = ('plant',)
 
     plant = factory.SubFactory(PlantFactory)
-    user = factory.SubFactory(UserFactory)

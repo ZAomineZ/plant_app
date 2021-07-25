@@ -8,10 +8,12 @@
                 <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
                     <h2 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">{{ page.title }}</h2>
                     <ul class="d-flex list-unstyled mt-auto">
-                        <li class="me-auto">
-                            <a href="{% url 'plant:favorite_plant.add' user.username page.slug %}"
-                               class="btn btn-primary">Ajouter au favoris</a>
-                        </li>
+                        {% if user.is_authenticated %}
+                            <li class="me-auto">
+                                <a href="{% url 'plant:favorite_plant.add' username=user.username plant_slug=page.slug %}"
+                                   class="btn btn-primary">Ajouter au favoris</a>
+                            </li>
+                        {% endif %}
                     </ul>
                 </div>
             </div>

@@ -1,10 +1,9 @@
-from django.contrib.auth.models import User
 from django.test import TestCase
 from django.urls import reverse
 
 from admin.tests.utils.Message import Message
 from plant import factories
-from plant.models import FavoritePlant
+from plant.models import FavoritePlant, CustomUser
 
 
 class FavoritePlantAction(TestCase):
@@ -19,7 +18,7 @@ class FavoritePlantAction(TestCase):
                                                    wind='Exposition maritime', soil='Argile lourde', growth_rate='Vite')
 
         # Create user factory
-        self.user = User.objects.create(username='Vincent', email='vincent@test.fr')
+        self.user = CustomUser.objects.create(username='Vincent', email='vincent@test.fr')
         self.user.set_password('test')
         self.user.save()
         self.user_fake = factories.UserFactory.create(username='Toto', email='toto@test.fr', password='testtoto')
@@ -48,10 +47,9 @@ class FavoritePlantAction(TestCase):
 
         response = self.client.get(reverse('plant:favorite_plant.add', args=(self.user.username, self.plant.slug)))
 
-        plants_favorite = FavoritePlant.objects.all()
+        plants_favorite = self.user.favorite_plants.all()
         plant_favorite = plants_favorite[0]
         self.assertEqual(response.status_code, 302)
-        self.assertEqual(plant_favorite.user, self.user)
         self.assertEqual(plant_favorite.plant, self.plant)
         self.assertEqual(FavoritePlant.objects.count(), 1)
 
@@ -59,7 +57,8 @@ class FavoritePlantAction(TestCase):
         # Authenticated user
         self.client.login(username='Vincent', password='test')
         # Create favorite_plant to user current and to plant current
-        FavoritePlant.objects.create(user=self.user, plant=self.plant)
+        favorite_plant = FavoritePlant.objects.create(plant=self.plant)
+        self.user.favorite_plants.add(favorite_plant)
 
         response = self.client.get(reverse('plant:favorite_plant.add', args=(self.user.username, self.plant.slug)))
 
@@ -91,13 +90,14 @@ class FavoritePlantAction(TestCase):
         # Authenticated user
         self.client.login(username='Vincent', password='test')
         # Create favorite_plant to user current and to plant current
-        FavoritePlant.objects.create(user=self.user, plant=self.plant)
+        favorite_plant = FavoritePlant.objects.create(plant=self.plant)
+        self.user.favorite_plants.add(favorite_plant)
 
         response = self.client.get(reverse('plant:favorite_plant.delete', args=(self.user.username, self.plant.slug)))
         self.assertEqual(response.status_code, 302)
         self.assertEqual(FavoritePlant.objects.count(), 0)
 
-    def test_action_add_to_favorite_plant_dont_exist(self):
+    def test_action_delete_to_favorite_plant_dont_exist(self):
         # Authenticated user
         self.client.login(username='Vincent', password='test')
 
