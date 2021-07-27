@@ -127,3 +127,17 @@ class RegisterForm(forms.ModelForm):
         if field_data_exist.exists():
             self.add_error(field, 'L\'{} est dèjà pris'.format(field))
         return field_data
+
+
+class LoginForm(forms.Form):
+    username = forms.CharField(label='username', max_length=255, required=True,
+                               widget=forms.TextInput(attrs={'class': 'form-control'}))
+    password = forms.CharField(label='password', max_length=255, required=True,
+                               widget=forms.TextInput(attrs={'class': 'form-control'}))
+
+    def clean_username(self):
+        username = self.cleaned_data.get('username')
+        user = CustomUser.objects.filter(username=username)
+        if not user.exists():
+            self.add_error('username', 'Cette username n\'éxiste pas dans notre base de donnée'.format('username'))
+        return username
