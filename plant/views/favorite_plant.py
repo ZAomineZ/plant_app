@@ -4,11 +4,13 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 
-from plant.models import FavoritePlant, Plant, CustomUser
+from plant.models import FavoritePlant, Plant
+from plant.models.user import CustomUser
 
 
 @login_required
 def index(request, username: str):
+    print(CustomUser.objects.all())
     user = get_object_or_404(CustomUser, username=username)
     if request.user.username != user.username:
         return HttpResponseRedirect(reverse('plant:index'))
