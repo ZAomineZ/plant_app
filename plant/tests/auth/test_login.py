@@ -39,7 +39,6 @@ class LoginTest(TestCase):
         messages = Message.getMessages(response)
         self.assertEqual(response.status_code, 302)
         self.assertIn('Vous êtes maitenant connecté', messages)
-        self.assertTrue(self.user.is_authenticated)
 
     def request_login(self, args: dict = None):
         response = self.client.post(reverse('plant:auth.login'), data=args)

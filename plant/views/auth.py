@@ -40,6 +40,7 @@ def login(request):
             userCurrent = CustomUser.objects.filter(username=username).first()
             user: CustomUser | None = authenticate(request, username=userCurrent.username, password=password)
             if user and not None and user.is_active:
+                login(request, user)
                 # Add message success
                 messages.success(request, 'Vous êtes maitenant connecté')
                 return HttpResponseRedirect(reverse('plant:index'))

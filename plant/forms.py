@@ -99,9 +99,9 @@ class RegisterForm(forms.ModelForm):
     email = forms.CharField(label='email', max_length=255, required=True,
                             widget=forms.TextInput(attrs={'class': 'form-control'}))
     password = forms.CharField(label='password', max_length=255, required=True,
-                               widget=forms.TextInput(attrs={'class': 'form-control'}))
+                               widget=forms.PasswordInput(attrs={'class': 'form-control'}))
     password_confirm = forms.CharField(label='password', max_length=255, required=True,
-                                       widget=forms.TextInput(attrs={'class': 'form-control'}))
+                                       widget=forms.PasswordInput(attrs={'class': 'form-control'}))
 
     class Meta:
         model = CustomUser
@@ -133,7 +133,7 @@ class LoginForm(forms.Form):
     username = forms.CharField(label='username', max_length=255, required=True,
                                widget=forms.TextInput(attrs={'class': 'form-control'}))
     password = forms.CharField(label='password', max_length=255, required=True,
-                               widget=forms.TextInput(attrs={'class': 'form-control'}))
+                               widget=forms.PasswordInput(attrs={'class': 'form-control'}))
 
     def clean_username(self):
         username = self.cleaned_data.get('username')
