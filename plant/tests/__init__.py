@@ -2,6 +2,7 @@ from plant.tests.auth.test_register_page import *
 from plant.tests.auth.test_register import *
 from plant.tests.auth.test_login_page import *
 from plant.tests.auth.test_login import *
+from plant.tests.auth.test_logout import *
 
 from plant.tests.favorite_plant.test_action import *
 from plant.tests.favorite_plant.test_index import *

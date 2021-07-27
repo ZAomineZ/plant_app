@@ -1,5 +1,7 @@
 from django.contrib import messages
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate, login as login_action
+from django.contrib.auth import logout as logout_action
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.hashers import make_password
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
@@ -40,10 +42,17 @@ def login(request):
             userCurrent = CustomUser.objects.filter(username=username).first()
             user: CustomUser | None = authenticate(request, username=userCurrent.username, password=password)
             if user and not None and user.is_active:
-                login(request, user)
+                login_action(request, user)
                 # Add message success
                 messages.success(request, 'Vous êtes maitenant connecté')
                 return HttpResponseRedirect(reverse('plant:index'))
         else:
             messages.error(request, 'Le formulaire n\'est pas valide')
     return render(request, 'plant/auth/login.html', {'form': form})
+
+
+@login_required
+def logout(request):
+    logout_action(request)
+    messages.success(request, 'Vous êtes maitenant déconnecté')
+    return HttpResponseRedirect(reverse('plant:index'))
