@@ -26,7 +26,7 @@
     <show-object-properties value="true" />
     <loaded-nodes>
       <connection connection-id="e25a3fdb-159b-4aba-ae0b-326169548098">
-        <schema name="public" object-types="table, view" />
+        <schema name="public" object-types="table, view, sequence, function, constraint, index, column, dataset trigger" />
       </connection>
     </loaded-nodes>
   </component>
@@ -43,10 +43,14 @@
   </component>
   <component name="DBNavigator.Project.DatasetFilterManager">
     <filter-actions connection-id="e25a3fdb-159b-4aba-ae0b-326169548098" dataset="public.plant_customuser" active-filter-id="EMPTY_FILTER" />
+    <filter-actions connection-id="e25a3fdb-159b-4aba-ae0b-326169548098" dataset="public.auth_group" active-filter-id="EMPTY_FILTER" />
     <filter-actions connection-id="e25a3fdb-159b-4aba-ae0b-326169548098" dataset="public.plant_imageplant" active-filter-id="EMPTY_FILTER" />
     <filter-actions connection-id="e25a3fdb-159b-4aba-ae0b-326169548098" dataset="public.plant_plant" active-filter-id="EMPTY_FILTER" />
+    <filter-actions connection-id="e25a3fdb-159b-4aba-ae0b-326169548098" dataset="public.plant_customuser_favorite_plants" active-filter-id="EMPTY_FILTER" />
     <filter-actions connection-id="e25a3fdb-159b-4aba-ae0b-326169548098" dataset="public.plant_favoriteplant" active-filter-id="EMPTY_FILTER" />
     <filter-actions connection-id="e25a3fdb-159b-4aba-ae0b-326169548098" dataset="public.auth_user" active-filter-id="EMPTY_FILTER" />
+    <filter-actions connection-id="e25a3fdb-159b-4aba-ae0b-326169548098" dataset="public.auth_group_permissions" active-filter-id="EMPTY_FILTER" />
+    <filter-actions connection-id="e25a3fdb-159b-4aba-ae0b-326169548098" dataset="public.auth_permission" active-filter-id="EMPTY_FILTER" />
     <filter-actions connection-id="e25a3fdb-159b-4aba-ae0b-326169548098" dataset="public.plant_category" active-filter-id="EMPTY_FILTER" />
   </component>
   <component name="DBNavigator.Project.EditorStateManager">
@@ -94,7 +98,7 @@
           <deprecated-pwd value="cm9vdA==" />
         </database>
         <properties>
-          <auto-commit value="false" />
+          <auto-commit value="true" />
         </properties>
         <ssh-settings>
           <active value="false" />

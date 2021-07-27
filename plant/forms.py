@@ -1,7 +1,7 @@
 from django import forms
 from django.utils.text import slugify
 
-from plant.models import Category, Plant
+from plant.models import Category, Plant, CustomUser
 
 SHADE = [
     (slugify(''), 'Chosir une option...'),
@@ -32,7 +32,8 @@ SOIL = [
     (slugify('Argile lourde'), 'Argile lourde'),
     (slugify('Sol pauvre'), 'Sol pauvre')
 ]
-GROWTH_RATE = [(slugify(''), 'Chosir une option...'), (slugify('Vite'), 'Vite'), (slugify('Moyen'), 'Moyen'), (slugify('Lent'), 'Lent')]
+GROWTH_RATE = [(slugify(''), 'Chosir une option...'), (slugify('Vite'), 'Vite'), (slugify('Moyen'), 'Moyen'),
+               (slugify('Lent'), 'Lent')]
 
 
 class PlantForm(forms.ModelForm):
@@ -90,3 +91,39 @@ class CategoryForm(forms.ModelForm):
     class Meta:
         model = Category
         fields = ('title', 'slug', 'description')
+
+
+class RegisterForm(forms.ModelForm):
+    username = forms.CharField(label='username', max_length=255, required=True,
+                               widget=forms.TextInput(attrs={'class': 'form-control'}))
+    email = forms.CharField(label='email', max_length=255, required=True,
+                            widget=forms.TextInput(attrs={'class': 'form-control'}))
+    password = forms.CharField(label='password', max_length=255, required=True,
+                               widget=forms.TextInput(attrs={'class': 'form-control'}))
+    password_confirm = forms.CharField(label='password', max_length=255, required=True,
+                                       widget=forms.TextInput(attrs={'class': 'form-control'}))
+
+    class Meta:
+        model = CustomUser
+        fields = ['username', 'email', 'password']
+
+    def clean_email(self):
+        return self.validator_field_exist('email')
+
+    def clean_username(self):
+        return self.validator_field_exist('username')
+
+    def clean(self):
+        clean_data = super().clean()
+        password = clean_data.get('password')
+        password_confirm = clean_data.get('password_confirm')
+        if password is not None and password != password_confirm:
+            self.add_error('password', 'Vos mot de passes doivent être identiques.')
+        return clean_data
+
+    def validator_field_exist(self, field: str):
+        field_data = self.cleaned_data.get(field)
+        field_data_exist = CustomUser.objects.filter(**{field: field_data})
+        if field_data_exist.exists():
+            self.add_error(field, 'L\'{} est dèjà pris'.format(field))
+        return field_data

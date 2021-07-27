@@ -7,12 +7,12 @@ from plant.models import Plant, Category, ImagePlant, FavoritePlant, CustomUser
 class UserFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = CustomUser
-        django_get_or_create = ('username', 'email', 'password', 'is_superuser')
+        django_get_or_create = ('username', 'email', 'password', 'admin')
 
     username = factory.sequence(lambda n: 'Title %s' % n)
     email = factory.sequence(lambda n: 'email%s.test.fr' % n)
     password = 'test'
-    is_superuser = False
+    admin = False
 
 
 class CategoryFactory(factory.django.DjangoModelFactory):

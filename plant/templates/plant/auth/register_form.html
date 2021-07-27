@@ -1,0 +1,48 @@
+<form action="#" method="POST" class="pt-3">
+    {% csrf_token %}
+    <div class="mb-3">
+        <div class="form-group {% if form.errors.username %} has-validation {% endif %} mb-2">
+            <label for="{{ form.username.id_for_label }}" class="mb-1">Username</label>
+            {{ form.username }}
+            {% if form.errors.username %}
+                <div class="invalid-feedback">
+                    {{ form.errors.username }}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    <div class="mb-3">
+        <div class="form-group {% if form.errors.email %} has-validation {% endif %} mb-2">
+            <label for="{{ form.email.id_for_label }}" class="mb-1">Email</label>
+            {{ form.email }}
+            {% if form.errors.email %}
+                <div class="invalid-feedback">
+                    {{ form.errors.email }}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    <div class="mb-3">
+        <div class="form-group {% if form.errors.password %} has-validation {% endif %} mb-2">
+            <label for="{{ form.password.id_for_label }}" class="mb-1">Mot de passe</label>
+            {{ form.password }}
+            {% if form.errors.password %}
+                <div class="invalid-feedback">
+                    {{ form.errors.password }}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    <div class="mb-3">
+        <div class="form-group {% if form.errors.password_confirm %} has-validation {% endif %} mb-2">
+            <label for="{{ form.password_confirm.id_for_label }}" class="mb-1">Confirmation du mot de passe</label>
+            {{ form.password_confirm }}
+            {% if form.errors.password_confirm %}
+                <div class="invalid-feedback">
+                    {{ form.errors.password_confirm }}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
