@@ -61,3 +61,13 @@ def categories_edit(request, category_id: int):
         'category': category,
         'errors': errors
     })
+
+
+def categories_delete(request, category_id: int):
+    category = Category.objects.filter(pk=category_id)
+    if not category.exists():
+        messages.error(request, 'Vous ne pouvez pas supprimer une catégorie qui n\'éxiste pas')
+    else:
+        category.delete()
+        messages.success(request, 'Vous avez supprimé cette catégorie avec success')
+    return HttpResponseRedirect(reverse('admin:categories'))

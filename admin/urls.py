@@ -13,5 +13,6 @@ urlpatterns = [
     # URLS Category MODEL
     path('categories/', views.categories, name="categories"),
     path('categories/create', views.categories_create, name="categories.create"),
-    path('categories/edit/<int:category_id>', views.categories_edit, name="categories.edit")
+    path('categories/edit/<int:category_id>', views.categories_edit, name="categories.edit"),
+    path('categories/delete/<int:category_id>', views.categories_delete, name="categories.delete")
 ]
