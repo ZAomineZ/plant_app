@@ -1,3 +1,5 @@
+import os
+
 from django.db import models
 
 from plant.models.category import Category

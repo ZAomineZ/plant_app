@@ -7,7 +7,7 @@ from django.urls import reverse
 from PlantApp import settings
 from admin.tests.utils.Message import Message
 from plant import factories
-from plant.models import Category, ImagePlant
+from plant.models import Category, ImagePlant, Plant
 
 
 class DeletePlantTest(TestCase):
@@ -47,12 +47,14 @@ class DeletePlantTest(TestCase):
     def test_action_delete_with_unlink_image_current(self):
         response = self.request_delete_plant(self.plant.id)
 
+        plant = Plant.objects.filter(id=self.plant.id).first()
         image = ImagePlant.objects.filter(title=self.image.title).first()
         self.assertEqual(response.status_code, 302)
         self.assertFalse(
             os.path.exists(str(Path(
                 __file__).parent.parent.parent.parent.parent) + '/plant/static/plant' + settings.MEDIA_URL + str(self.plant.image.image)))
         self.assertIsNone(image)
+        self.assertIsNone(plant)
 
     def request_delete_plant(self, plant_id: int = None):
         return self.client.get(reverse('admin:plants.delete', args=(plant_id,)))

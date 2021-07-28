@@ -1,3 +1,5 @@
+import os
+
 from django.contrib import messages
 from django.core.files.storage import FileSystemStorage
 from django.http import HttpResponseRedirect
@@ -95,8 +97,10 @@ def plant_delete(request, plant_id: int):
     if not plant.exists():
         messages.error(request, 'Vous ne pouvez pas supprimer une plant qui n\'éxiste pas')
     else:
-        plant.first().image.image.delete()
-        plant.first().image.delete()
+        plant_model = plant.first()
+        if os.path.isfile(plant_model.image.image.path):
+            os.remove(plant_model.image.image.path)
+            plant_model.image.delete()
         plant.delete()
         messages.error(request, 'Vous avez supprimé cette plant avec success')
     return HttpResponseRedirect(reverse('admin:plants'))
@@ -105,6 +109,5 @@ def plant_delete(request, plant_id: int):
 def getImagePlant(image) -> ImagePlant:
     fs = FileSystemStorage()
     filename = fs.save(image.name, image)
-    uploaded_file_url = 'plant' + fs.url(filename)
     # Create new image plant model
-    return ImagePlant.objects.create(title=image.name, image=uploaded_file_url)
+    return ImagePlant.objects.create(title=image.name, image=filename)

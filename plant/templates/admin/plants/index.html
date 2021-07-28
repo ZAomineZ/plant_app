@@ -33,7 +33,7 @@
                     <td>{{ plant.soil | none_attribute }}</td>
                     <td>{{ plant.growth_rate | none_attribute }}</td>
                     <td>
-                        <img src="{% static plant.image.image %}" alt="{{ plant.image.title }}" class="img-fluid"
+                        <img src="{% static plant.image.get_image %}" alt="{{ plant.image.title }}" class="img-fluid"
                              width="50"
                              height="50">
                     </td>
@@ -41,7 +41,7 @@
                         <a href="{% url 'admin:plants.edit' plant.id %}" class="btn btn-secondary">
                             Editer
                         </a>
-                        <a href="{% url 'admin:plants.delete' plant.id %}" class="btn btn-secondary">
+                        <a href="{% url 'admin:plants.delete' plant.id %}" class="btn btn-danger">
                             Supprimer
                         </a>
                     </td>
