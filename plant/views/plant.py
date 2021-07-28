@@ -71,7 +71,6 @@ def detail(request, plant_slug: str):
         'plants_related': plants_related
     })
 
-
 def related_plants(plant: Plant):
     description_current = plant.description
 

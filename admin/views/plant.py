@@ -90,6 +90,18 @@ def plant_edit(request, plant_id: int):
     return render(request, 'admin/plants/edit.html', {'form': form, 'errors': errors})
 
 
+def plant_delete(request, plant_id: int):
+    plant = Plant.objects.filter(pk=plant_id)
+    if not plant.exists():
+        messages.error(request, 'Vous ne pouvez pas supprimer une plant qui n\'éxiste pas')
+    else:
+        plant.first().image.image.delete()
+        plant.first().image.delete()
+        plant.delete()
+        messages.error(request, 'Vous avez supprimé cette plant avec success')
+    return HttpResponseRedirect(reverse('admin:plants'))
+
+
 def getImagePlant(image) -> ImagePlant:
     fs = FileSystemStorage()
     filename = fs.save(image.name, image)

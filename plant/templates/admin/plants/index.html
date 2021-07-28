@@ -3,7 +3,7 @@
 {% load none_attribute_tag %}
 
 {% block content %}
-    <div class="container py-5">
+    <div class="container py-5" style="padding-top: 6rem !important;">
         <table class="table mt-3">
             <thead>
             <tr>
@@ -16,6 +16,7 @@
                 <th scope="col">Vent</th>
                 <th scope="col">Sol</th>
                 <th scope="col">Taux de croissance</th>
+                <th scope="col">Image</th>
                 <th scope="col">Actions</th>
             </tr>
             </thead>
@@ -39,6 +40,9 @@
                     <td>
                         <a href="{% url 'admin:plants.edit' plant.id %}" class="btn btn-secondary">
                             Editer
+                        </a>
+                        <a href="{% url 'admin:plants.delete' plant.id %}" class="btn btn-secondary">
+                            Supprimer
                         </a>
                     </td>
                 </tr>

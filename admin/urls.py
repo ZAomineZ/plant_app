@@ -9,6 +9,7 @@ urlpatterns = [
     path('plants/', views.plants, name="plants"),
     path('plants/create', views.plant_create, name="plants.create"),
     path('plants/edit/<int:plant_id>', views.plant_edit, name="plants.edit"),
+    path('plants/delete/<int:plant_id>', views.plant_delete, name="plants.delete"),
     # URLS Category MODEL
     path('categories/', views.categories, name="categories"),
     path('categories/create', views.categories_create, name="categories.create"),
